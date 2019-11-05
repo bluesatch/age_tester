@@ -28,28 +28,42 @@ function ageTest() {
 
 
     var output = document.getElementById('output');
+    var access;
     var granted = "Access Granted";
     var denied = "Access Denied!";
+
+    const accessGranted = (access)=> {
+        if(access === 'denied') {
+            document.getElementById("output").classList.remove('granted');
+            document.getElementById("output").classList.add(access);
+            output.innerText = denied;
+        } else if(access === 'granted') {
+            document.getElementById("output").classList.remove('denied');
+            document.getElementById("output").classList.add(access);
+            output.innerText = granted;
+        }
+    }
 
     var validate = document.getElementById('checked');
     if (validate.checked) {
 
         if(yearTest > 21) {
-            output.innerText = granted;
+            accessGranted('granted');
+            
         } else if (yearTest === 21) {
             if (monthTest > 0) {
-                output.innerText = granted;
+                accessGranted('granted');
             } else if (monthTest === 0) {
                 if(dayTest >= 0) {
-                    output.innerText = granted;
+                    accessGranted('granted');
                 } else {
-                    output.innerText = denied;
+                    accessGranted('denied');
                 }
             } else {
-                output.innerText = denied;
+                accessGranted('denied');
             }
         } else {
-            output.innerText = denied;
+            accessGranted('denied');
         }
     } else {
         output.innerText = "Please check box!"
